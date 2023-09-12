@@ -1,0 +1,84 @@
+type Block @entity {
+    id: ID!
+    number: Int! @index
+    timestamp: DateTime!
+    transactions: [Transaction!]! @derivedFrom(field: "block")
+}
+
+type Transaction @entity {
+    id: ID!
+    hash: String! @index
+    block: Block!
+    contract: String
+    transactionFee: BigInt!
+    to: String!
+    from: String!
+    func: String!
+    value: BigInt! 
+}
+ 
+type Transfer @entity {
+  id: ID!
+  "cTokens transferred"
+  amount: BigInt!
+  "Account that received tokens"
+  to: String!
+  "Account that sent tokens"
+  from: String!
+  transactionHash: String! @index
+  "Block number"
+  blockNumber: Int!
+  "Block time"
+  blockTime: BigInt!
+  "Symbol of the cToken transferred"
+  tokenSymbol: String!
+}
+
+type EventDepositSDAsCollateral @entity {
+  id: ID!
+  "SD deposit amount"
+  amount: BigInt!
+  "Account that sent tokens"
+  from: String!
+  transactionHash: String! @index
+  "Block number"
+  blockNumber: Int!
+  "Block time"
+  blockTime: BigInt!
+}
+
+
+type EventOperatorRewardsUpdated @entity {
+  id: ID!
+  transactionHash: String! @index
+  "Block number"
+  blockNumber: Int!
+  "Block time"
+  blockTime: BigInt!
+}
+
+type EventAddValidatorKeys @entity {
+  id: ID!
+  "Account that sent tokens"
+  from: String!
+  transactionHash: String! @index
+  "Block number"
+  blockNumber: Int!
+  "Block time"
+  blockTime: BigInt!
+}
+
+type EventOperatorRewardsClaimed @entity {
+  id: ID!
+  "SD reward amount"
+  amountSd: BigInt!
+  "ETH reward amount"
+  amountEth: BigInt!
+  "Account that sent tokens"
+  to: String!
+  transactionHash: String! @index
+  "Block number"
+  blockNumber: Int!
+  "Block time"
+  blockTime: BigInt!
+}
